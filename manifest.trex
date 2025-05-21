@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest xmlns="http://tableau.com/xml/extension_manifest">
+  <DashboardExtension>
+    <Name>My Extension Name</Name>
+    <Description>This is a sample Tableau extension.</Description>
+    <Author>
+      <Name>Author Name</Name>
+      <Email>author@example.com</Email>
+    </Author>
+    <HomepageUrl>https://yourdomain.com</HomepageUrl>
+    <Url>https://yourdomain.com/your-extension.html</Url>
+    <MinApiVersion>1.0</MinApiVersion>
+    <Permissions>
+      <Scope>Read</Scope>
+      <Scope>Write</Scope>
+    </Permissions>
+  </DashboardExtension>
+</ExtensionManifest>
