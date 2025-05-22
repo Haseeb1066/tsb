@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tableau Chat Assistant</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    #chat-box {
+      width: 100%;
+      max-width: 700px;
+      height: 500px;
+      border: 1px solid #ccc;
+      background: #fff;
+      overflow-y: auto;
+      padding: 15px;
+      margin-bottom: 10px;
+    }
+    .user {
+      color: #0066cc;
+      font-weight: bold;
+    }
+    .assistant {
+      color: #333;
+      font-weight: normal;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+    }
+    button {
+      padding: 10px 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>💬 Tableau Chat Assistant</h2>
+  <div id="chat-box"></div>
+  <input type="text" id="user-input" placeholder="Type your question..." />
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    const chatBox = document.getElementById("chat-box");
+
+    function appendMessage(sender, text) {
+      const message = document.createElement("div");
+      message.innerHTML = `<span class="${sender}">${sender === 'user' ? 'You' : 'Assistant'}:</span> ${text}`;
+      chatBox.appendChild(message);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById("user-input");
+      const question = input.value.trim();
+      if (!question) return;
+
+      appendMessage('user', question);
+      input.value = "";
+
+      try {
+        const response = await fetch("/ask", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question })
+        });
+
+        const data = await response.json();
+        if (data.response) {
+          appendMessage('assistant', data.response);
+        } else {
+          appendMessage('assistant', "❌ Error: " + (data.error || "Unknown error"));
+        }
+      } catch (err) {
+        appendMessage('assistant', "❌ Failed to send request.");
+        console.error(err);
+      }
+    }
+
+    // Send on Enter key
+    document.getElementById("user-input").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+
+</body>
+</html>

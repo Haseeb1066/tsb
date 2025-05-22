@@ -1,18 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest xmlns="http://tableau.com/xml/extension_manifest">
-  <DashboardExtension>
-    <Name>My Extension Name</Name>
-    <Description>This is a sample Tableau extension.</Description>
-    <Author>
-      <Name>Author Name</Name>
-      <Email>author@example.com</Email>
-    </Author>
-    <HomepageUrl>https://yourdomain.com</HomepageUrl>
-    <Url>https://yourdomain.com/your-extension.html</Url>
-    <MinApiVersion>1.0</MinApiVersion>
-    <Permissions>
-      <Scope>Read</Scope>
-      <Scope>Write</Scope>
-    </Permissions>
-  </DashboardExtension>
+<?xml version="1.0" encoding="utf-8" ?>
+<ExtensionManifest xmlns="http://tableau.com/2018/extensions/extension-manifest">
+
+  <Name>Tableau Chat Assistant</Name>
+  <Version>1.0.0</Version>
+  <Author>
+    <Name>Haseeb</Name>
+    <Email>your@email.com</Email>
+  </Author>
+  <Description>Chatbot assistant using Tableau data and OpenAI</Description>
+
+  <!-- The URL of your hosted chat.html (must be HTTPS) -->
+  <WebpageUrl>https://yourdomain.com/chat.html</WebpageUrl>
+
+  <Extension id="tableau-chat-assistant">
+    <Script>chat.html</Script>
+    <UseDialog>false</UseDialog>
+  </Extension>
+
+  <!-- Permissions for filter and datasource if needed -->
+  <RequiredPermissions>
+    <Permission>datasources</Permission>
+    <Permission>filters</Permission>
+  </RequiredPermissions>
+
 </ExtensionManifest>
